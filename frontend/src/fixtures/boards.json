@@ -1,0 +1,78 @@
+[
+  {
+    "category": "Japanese Culture",
+    "list": [
+      "a",
+      "c",
+      "w",
+      "m",
+      "cgl",
+      "cm",
+      "n",
+      "jp"
+    ]
+  },
+  {
+    "category": "Video Games",
+    "list": [
+      "v",
+      "vg",
+      "vm",
+      "vmg",
+      "vp",
+      "vr",
+      "vrpg",
+      "vst"
+    ]
+  },
+  {
+    "category": "Interests",
+    "list": [
+      "co",
+      "g",
+      "tv",
+      "k",
+      "o",
+      "an",
+      "tg",
+      "sp",
+      "asp",
+      "sci",
+      "his",
+      "int",
+      "out",
+      "toy"
+    ]
+  },
+  {
+    "category": "Creative",
+    "list": [
+      "po",
+      "p",
+      "ck",
+      "lit",
+      "mu",
+      "fa",
+      "3",
+      "gd",
+      "diy",
+      "wsg",
+      "qst"
+    ]
+  },
+  {
+    "category": "Other",
+    "list": [
+      "biz",
+      "trv",
+      "fit",
+      "x",
+      "adv",
+      "lgbt",
+      "mlp",
+      "news",
+      "wsr",
+      "vip"
+    ]
+  }
+]
