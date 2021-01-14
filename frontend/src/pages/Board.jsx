@@ -28,7 +28,7 @@ export default function Board() {
         {isFormOpen ? <CreateThreadForm setIsFormOpen={setIsFormOpen} /> : <Button color="primary" onClick={toggleFormOpen}
         >Start a New Thread</Button>}
       </Container>
-      <ThreadsList/>
+      <ThreadsList />
       {/* <TheToast /> */}
     </>
   )

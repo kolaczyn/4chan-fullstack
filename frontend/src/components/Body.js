@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components/macro'
 const Body = styled.main`
   background-color: #eef2ff;

@@ -1,3 +1,4 @@
+import React from "react";
 import Home from "./pages/Home";
 import Thread from "./pages/Thread";
 import Header from './components/Logo'
