@@ -1,4 +1,12 @@
-[
+export type Thread = {
+  board: String,
+  file: String,
+  subject: String,
+  comment: String,
+  id: Number,
+};
+
+const dummyData: Array<Thread> = [
   {
     "board": "g",
     "file": "thread0.jpg",
@@ -85,3 +93,5 @@
     "id": 11
   }
 ]
+
+export default dummyData;

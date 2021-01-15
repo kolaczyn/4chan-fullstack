@@ -1,7 +1,10 @@
-import express, {Request as Req, Response as Res} from 'express'
-import dummyData from './dummyData.json'
+import express, { Request as Req, Response as Res } from 'express';
+const Joi = require('joi');
+import dummyData, {Thread} from './dummyData';
 
-const app = express()
+
+const app = express();
+app.use(express.json());
 require('dotenv').config();
 
 app.get('/api/threads', (req: Req, res: Res) => {
@@ -29,8 +32,25 @@ app.get('/api/threads/:board/:id', (req: Req, res: Res) => {
   res.send(output);
 })
 
-app.post('/api/threads/:board', (req: Req, res: Res)=> {
+// create a thread
+app.post('/api/threads/:board', (req: Req, res: Res) => {
+  // later implement checking if board is valid
+  const { board } = req.params;
+  const { file, subject, comment } = req.body;
 
+  // I should probably check if they're both an empty string,
+  // request is good <=> there's at least one nonwhiespace charcter in subject+comment
+  if (!subject && !comment) return res.status(400).send('No subject and comment');
+  // for now we provide a default image if one is not provided
+  const output : Thread = {
+    board,
+    id: (Math.random() * 1000000),
+    file: file || 'default.jpg',
+    subject,
+    comment,
+  }
+  dummyData.push(output);
+  res.send(output);
 })
 
 const PORT = process.env.PORT || 3000
