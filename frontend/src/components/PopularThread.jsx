@@ -1,5 +1,6 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { Card, CardBody, CardImg, CardText, CardTitle } from 'reactstrap'
 
 export default function PopularThread({ board, file, subject, comment, id }) {
@@ -14,4 +15,12 @@ export default function PopularThread({ board, file, subject, comment, id }) {
       </CardBody>
     </Card>
   )
+}
+
+PopularThread.propTypes = {
+  board: PropTypes.string,
+  file: PropTypes.string,
+  subject: PropTypes.string,
+  comment: PropTypes.string,
+  id: PropTypes.number,
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Button, Form, FormGroup, Label, Input, CustomInput } from 'reactstrap'
 
 export default function CreateThreadForm({setIsFormOpen}) {
@@ -32,4 +33,8 @@ export default function CreateThreadForm({setIsFormOpen}) {
       <Button outline color="danger" onClick={() => setIsFormOpen(false)}>Cancel</Button>
     </Form>
   )
+}
+
+CreateThreadForm.propTypes = {
+  setIsFormOpen: PropTypes.func
 }

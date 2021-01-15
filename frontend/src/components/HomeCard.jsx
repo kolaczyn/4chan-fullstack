@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 // I should rename the component to e.g. HomeSection.jsx
 
@@ -9,4 +10,9 @@ export default function HomeCards({title, children}) {
       <section>{children}</section>
     </section>
   )
+}
+
+HomeCards.propTypes = {
+  title: PropTypes.string,
+  children: PropTypes.children,
 }

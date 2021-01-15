@@ -6,7 +6,7 @@ export default function Thread() {
   return (
     <div>
       <h2>Welcome on {board}</h2>
-      <h4>You're viewing thread no. {threadId}</h4>
+      <h4>You are viewing thread no. {threadId}</h4>
     </div>
   )
 }

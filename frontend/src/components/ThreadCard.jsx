@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Card, CardBody, CardImg, CardText, CardTitle } from 'reactstrap'
 import {Link} from 'react-router-dom'
 
@@ -16,4 +17,12 @@ export default function ThreadCard({board, file, subject, comment, id }) {
     </Card>
     </div>
   )
+}
+
+ThreadCard.propTypes = {
+  board: PropTypes.string,
+  file: PropTypes.string,
+  subject: PropTypes.string,
+  comment: PropTypes.string,
+  id: PropTypes.number,
 }
