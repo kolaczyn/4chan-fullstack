@@ -5,5 +5,5 @@ export default function Faq() {
     <div>
       <h1>Hello from FAQ</h1>
     </div>
-  )
+  );
 }

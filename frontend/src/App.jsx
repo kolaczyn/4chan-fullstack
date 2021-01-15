@@ -1,12 +1,11 @@
-import React from "react";
-import Home from "./pages/Home";
-import Thread from "./pages/Thread";
-import Header from './components/Logo'
-import Faq from './pages/Faq'
-import Body from './components/Body'
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Board from "./pages/Board";
+import Body from './components/Body';
+import Header from './components/Logo';
+import Thread from './pages/Thread';
+import Board from './pages/Board';
+import Home from './pages/Home';
 
 function App() {
   return (
@@ -14,9 +13,6 @@ function App() {
       <Body>
         <Header />
         <Switch>
-          <Route path="/faq">
-            <Faq />
-          </Route>
           <Route path="/:board/thread/:id">
             <Thread />
           </Route>

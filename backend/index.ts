@@ -45,7 +45,7 @@ app.post('/api/threads/:board', (req: Req, res: Res) => {
   const output : Thread = {
     board,
     id: (Math.random() * 1000000),
-    file: file || 'default.jpg',
+    file: file || 'default.png',
     subject,
     comment,
   }

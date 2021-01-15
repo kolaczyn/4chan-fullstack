@@ -12,8 +12,9 @@ By making this project I wanted to show that I am able to both consume and creat
 - Already in use
   * React
   * Bootstrap
-  * Reacstrap
+  * Reactstrap
   * Styled Components
+  * React Router
   * React Helmet
 
 - Planned

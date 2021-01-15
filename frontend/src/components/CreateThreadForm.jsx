@@ -1,11 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Button, Form, FormGroup, Label, Input, CustomInput } from 'reactstrap'
+import React from 'react';
+import PropTypes from 'prop-types';
+import {
+  Button, Form, FormGroup, Label, Input, CustomInput,
+} from 'reactstrap';
 
-export default function CreateThreadForm({setIsFormOpen}) {
+export default function CreateThreadForm({ setIsFormOpen }) {
   const handleSubmit = (e) => {
     e.preventDefault();
-  }
+  };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -27,14 +29,14 @@ export default function CreateThreadForm({setIsFormOpen}) {
       </FormGroup>
       <FormGroup>
         <Label for="file">File</Label>
-        <CustomInput name="file" type="file" id="file"/>
+        <CustomInput name="file" type="file" id="file" />
       </FormGroup>
       <Button color="primary" className="mr-2">Post</Button>
       <Button outline color="danger" onClick={() => setIsFormOpen(false)}>Cancel</Button>
     </Form>
-  )
+  );
 }
 
 CreateThreadForm.propTypes = {
-  setIsFormOpen: PropTypes.func
-}
+  setIsFormOpen: PropTypes.func.isRequired,
+};
