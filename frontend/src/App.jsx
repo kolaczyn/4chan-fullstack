@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import Body from './components/Body';
-import Header from './components/Logo';
+import Body from './components/common/Body';
+import Header from './components/common/Logo';
 import Thread from './pages/Thread';
 import Board from './pages/Board';
 import Home from './pages/Home';

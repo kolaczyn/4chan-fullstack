@@ -1,7 +1,7 @@
 import React from 'react';
 import { Toast, ToastBody, ToastHeader } from 'reactstrap';
 
-import { title, body } from '../fixtures/robot.json';
+import { title, body } from '../../fixtures/robot.json';
 
 // It's pretty dumb name, change it later
 

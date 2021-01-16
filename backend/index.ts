@@ -1,10 +1,16 @@
-import express, { Request as Req, Response as Res } from 'express';
+import express, { Request as Req, Response as Res, NextFunction as Next } from 'express';
+const cors = require('cors')
 const Joi = require('joi');
-import dummyData, {Thread} from './dummyData';
+import dummyData, { Thread } from './dummyData';
 
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded())
+// to allow frontend consume the api
+// maybe configure it later
+app.use(cors());
+
 require('dotenv').config();
 
 app.get('/api/threads', (req: Req, res: Res) => {
@@ -42,7 +48,7 @@ app.post('/api/threads/:board', (req: Req, res: Res) => {
   // request is good <=> there's at least one nonwhiespace charcter in subject+comment
   if (!subject && !comment) return res.status(400).send('No subject and comment');
   // for now we provide a default image if one is not provided
-  const output : Thread = {
+  const output: Thread = {
     board,
     id: (Math.random() * 1000000),
     file: file || 'default.png',

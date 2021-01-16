@@ -1,15 +1,23 @@
+/* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Col, Container, Row } from 'reactstrap';
+import axios from 'axios';
 
-import PopularThread from '../PopularThread';
-import HomeCard from '../HomeCard';
-import threads from '../../fixtures/threads.json';
-
-const popularThreads = threads.slice(0, 8);
+import PopularThread from './PopularThread';
+import HomeCard from './HomeCard';
+import apiEndpoint from '../../const/apiEndpoint';
 
 export default function PopularThreads() {
-  // const [popularThreads, setPopularThreads] = useState();
+  const [popularThreads, setPopularThreads] = useState([]);
+
+  useEffect(() => {
+    // link is a dumb name
+    const link = `http://${apiEndpoint}/popular`;
+    axios.get(link).then((res) => {
+      setPopularThreads(res.data);
+    }).catch((err) => console.error(err));
+  }, []);
 
   return (
     <Container>

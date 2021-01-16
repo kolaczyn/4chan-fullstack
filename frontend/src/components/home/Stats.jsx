@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Container, Row } from 'reactstrap';
 
-import HomeCard from '../HomeCard';
+import HomeCard from './HomeCard';
 import { totalPosts, currentUsers, activeContent } from '../../fixtures/stats.json';
 
 const numberWithCommas = (str) => str.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');

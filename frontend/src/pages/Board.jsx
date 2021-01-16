@@ -4,8 +4,8 @@ import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
 
 import slugToName from '../const/slugToName.json';
-import CreateThreadForm from '../components/CreateThreadForm';
-import ThreadsList from '../components/ThreadsList';
+import CreateThreadForm from '../components/board/CreateThreadForm';
+import ThreadsList from '../components/board/ThreadsList';
 
 export default function Board() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -14,6 +14,8 @@ export default function Board() {
     setIsFormOpen((old) => !old);
   };
 
+  // i should make custom hooks for getting current board, since
+  // i use this logic in two files (Board.jsx and ThreadList.jsx)
   const boardSlug = useLocation().pathname;
   const boardName = slugToName[boardSlug.replaceAll('/', '')];
   const siteTitle = `${boardSlug} - ${boardName} - 4chan`;
