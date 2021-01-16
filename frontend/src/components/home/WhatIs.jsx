@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from 'reactstrap';
 
-import HomeCard from './HomeCard';
+import HomeCard from '../common/SectionWrapper';
 
 import { title, p1, p2 } from '../../fixtures/whatIs.json';
 

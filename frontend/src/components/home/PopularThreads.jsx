@@ -4,28 +4,33 @@ import React, { useState, useEffect } from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import axios from 'axios';
 
-import PopularThread from './PopularThread';
-import HomeCard from './HomeCard';
 import apiEndpoint from '../../const/apiEndpoint';
+import SectionWrapper from '../common/SectionWrapper';
+import ThreadCard from '../board/ThreadCard';
 
 export default function PopularThreads() {
+  const [isLoading, setIsLoading] = useState(true);
   const [popularThreads, setPopularThreads] = useState([]);
 
   useEffect(() => {
     // link is a dumb name
-    const link = `http://${apiEndpoint}/popular`;
+    const link = `${apiEndpoint}/popular`;
     axios.get(link).then((res) => {
       setPopularThreads(res.data);
-    }).catch((err) => console.error(err));
+      setIsLoading(false);
+    });
   }, []);
 
   return (
+    !isLoading
+    && (
     <Container>
-      <HomeCard title="Popular Threads">
+      <SectionWrapper title="Popular Threads">
         <Row>
-          {popularThreads.map((thread) => <Col lg="3" md="6" xs="12" key={`${thread.board}-${thread.id}`}><PopularThread {...thread} /></Col>)}
+          {popularThreads.map((thread) => <Col lg="3" md="6" xs="12" key={`${thread.board}-${thread.id}`}><ThreadCard {...thread} /></Col>)}
         </Row>
-      </HomeCard>
+      </SectionWrapper>
     </Container>
+    )
   );
 }

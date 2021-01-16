@@ -5,19 +5,16 @@ import { Col, Container, Row } from 'reactstrap';
 import axios from 'axios';
 
 import apiEndpoint from '../../const/apiEndpoint';
-import dummyThreads from '../../fixtures/threads.json';
 import ThreadCard from './ThreadCard';
 
 export default function ThreadsList() {
   const [threads, setThreads] = useState([]);
   const boardSlug = useLocation().pathname;
   useEffect(() => {
-    // link is a dumb name
-    const link = `http://${apiEndpoint}/threads${boardSlug}`;
-    console.log(link);
+    const link = `${apiEndpoint}/threads${boardSlug}`;
     axios.get(link).then((res) => {
       setThreads(res.data);
-    }).catch((err) => console.error(err));
+    });
   }, []);
   return (
     <Container fluid>

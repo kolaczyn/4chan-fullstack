@@ -5,27 +5,27 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
+import baseImageUrl from '../../const/baseImageUrl';
+
 export default function ThreadCard({
-  board, file, subject, comment, id,
+  board, ext, subject, comment, id,
 }) {
   const threadUrl = `/${board}/thread/${id}`;
   return (
-    <div>
-      <Card outline className="mb-4">
-        <CardImg top width="100%" src={`img/threads/${file}`} alt={subject || 'Thread thumbnail'} />
-        <CardBody>
-          <CardTitle tag="h6">{subject}</CardTitle>
-          <CardText>{comment}</CardText>
-          <Link className="stretched-link" to={threadUrl}>Read more...</Link>
-        </CardBody>
-      </Card>
-    </div>
+    <Card outline className="mb-4">
+      <CardImg top width="100%" src={`${baseImageUrl}${board}-${id}.${ext}`} alt={subject || 'Thread thumbnail'} />
+      <CardBody>
+        <CardTitle tag="h6">{subject}</CardTitle>
+        <CardText>{comment}</CardText>
+        <Link className="stretched-link" to={threadUrl}>Read more...</Link>
+      </CardBody>
+    </Card>
   );
 }
 
 ThreadCard.propTypes = {
   board: PropTypes.string.isRequired,
-  file: PropTypes.string.isRequired,
+  ext: PropTypes.string.isRequired,
   subject: PropTypes.string,
   comment: PropTypes.string,
   id: PropTypes.number.isRequired,
