@@ -11,9 +11,10 @@ export default function ThreadCard({
   board, ext, subject, comment, id,
 }) {
   const threadUrl = `/${board}/thread/${id}`;
+  const imgSrc = ext === '' ? `${baseImageUrl}default.png` : `${baseImageUrl}${board}-${id}.${ext}`;
   return (
     <Card outline className="mb-4">
-      <CardImg top width="100%" src={`${baseImageUrl}${board}-${id}.${ext}`} alt={subject || 'Thread thumbnail'} />
+      <CardImg top width="100%" src={imgSrc} alt={subject || 'Thread thumbnail'} />
       <CardBody>
         <CardTitle tag="h6">{subject}</CardTitle>
         <CardText>{comment}</CardText>

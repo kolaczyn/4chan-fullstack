@@ -16,6 +16,7 @@ By making this project I wanted to show that I am able to both consume and creat
   * Styled Components
   * React Router
   * React Helmet
+  * Formik
 
 - Planned
   * TypeScript
@@ -23,6 +24,7 @@ By making this project I wanted to show that I am able to both consume and creat
   * Redux Thunk
   * Jest
   * Maybe Next
+  * Maybe React Query
 
 ### Back end
 

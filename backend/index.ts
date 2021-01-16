@@ -1,6 +1,6 @@
 import express, { Request as Req, Response as Res, NextFunction as Next } from 'express';
 const cors = require('cors')
-const Joi = require('joi');
+require('dotenv').config();
 
 import theads, { Thread } from './threads';
 import stats, {Stats} from './stats'
@@ -9,12 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded())
 app.use(express.static(__dirname+'/public'))
-
-// to allow frontend consume the api
-// maybe configure it later
 app.use(cors());
-
-require('dotenv').config();
 
 app.get('/api/threads', (req: Req, res: Res) => {
   res.send(theads);
@@ -49,10 +44,10 @@ app.get('/api/stats', (req: Req, res:Res) => {
 app.post('/api/threads/:board', (req: Req, res: Res) => {
   // later implement checking if board is valid
   const { board } = req.params;
-  const { file, subject, comment } = req.body;
+  const { file, subject, comment, isARobot } = req.body;
 
-  // I should probably check if they're both an empty string,
-  // request is good <=> there's at least one nonwhiespace charcter in subject+comment
+  // TODO: make it so:
+  // request is good <=> there's at least one nonwhitespace character in subject OR comment
   if (!subject && !comment) return res.status(400).send('No subject and comment');
   // for now we provide a default image if one is not provided
   const output: Thread = {

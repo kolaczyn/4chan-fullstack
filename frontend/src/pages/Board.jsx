@@ -9,7 +9,7 @@ import CreateThreadForm from '../components/board/CreateThreadForm';
 import ThreadsList from '../components/board/ThreadsList';
 
 export default function Board() {
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(true);
 
   const toggleFormOpen = () => {
     setIsFormOpen((old) => !old);
