@@ -3,7 +3,6 @@ export type Stats = {
   currentUsers: Number,
   activeContent: String,
 }
-
 const stats: Stats = {
   "totalPosts": 3643090917,
   "currentUsers": 219266,
