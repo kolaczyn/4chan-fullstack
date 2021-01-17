@@ -1,35 +1,38 @@
-import  express, {Request as Req, Response as Res} from 'express';
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+import express, { Request as Req, Response as Res } from 'express';
 
 import theads, { Thread } from '../data/threads';
 
-const router = express.Router()
+const router = express.Router();
 
 router.get('/', (req: Req, res: Res) => {
   res.send(theads);
-})
+});
 
 router.get('/:board', (req: Req, res: Res) => {
   // we could first check if the requested board is valid
   const { board } = req.params;
-  const output = theads.filter(thread => thread.board === board);
+  const output = theads.filter((thread) => thread.board === board);
   if (!output) return res.status(404).send('Could not find any threads.');
-  res.send(output);
-})
+  return res.send(output);
+});
 
 router.get('/:board/:id', (req: Req, res: Res) => {
   // we could first check if the requested board is valid
   const { board, id } = req.params;
-  const output = theads.find(thread => (thread.board === board && thread.id === Number(id)))
+  const output = theads.find((thread) => (thread.board === board && thread.id === Number(id)));
   if (!output) return res.status(404).send('Could not find that thread.');
-  res.send(output);
-})
-
+  return res.send(output);
+});
 
 // create a thread
 router.post('/:board', (req: Req, res: Res) => {
   // later implement checking if board is valid
   const { board } = req.params;
-  const { file, subject, comment, isARobot } = req.body;
+  const {
+    subject, comment,
+  } = req.body;
 
   // TODO: make it so:
   // request is good <=> there's at least one nonwhitespace character in subject OR comment
@@ -41,9 +44,9 @@ router.post('/:board', (req: Req, res: Res) => {
     subject,
     comment,
     ext: '',
-  }
+  };
   theads.push(output);
-  res.send(output);
-})
+  return res.send(output);
+});
 
 module.exports = router;
