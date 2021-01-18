@@ -6,6 +6,7 @@ import useBoard from '../hooks/useBoard';
 import SectionWrapper from '../components/common/SectionWrapper';
 import ThreadForm from '../components/form/ThreadForm';
 import ThreadsList from '../components/board/ThreadsList';
+import BoardControls from '../components/board/BoardControls';
 
 export default function Board() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -34,7 +35,10 @@ export default function Board() {
           )}
         </SectionWrapper>
       </Container>
+      {/* yeah, the naming is kinda confusing */}
+      <BoardControls bottom />
       <ThreadsList />
+      <BoardControls top />
       {/* <TheToast /> */}
     </>
   );
