@@ -68,5 +68,4 @@ router.post('/:board', async (req: Req, res: Res) => {
   return res.send(result);
 });
 
-
 module.exports = router;

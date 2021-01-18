@@ -10,12 +10,14 @@ import ThreadCard from './ThreadCard';
 export default function ThreadsList() {
   const [threads, setThreads] = useState([]);
   const boardSlug = useLocation().pathname;
+
   useEffect(() => {
     const link = `${apiEndpoint}/threads${boardSlug}`;
     axios.get(link).then((res) => {
       setThreads(res.data);
     });
   }, []);
+
   return (
     <Container fluid>
       <Row>

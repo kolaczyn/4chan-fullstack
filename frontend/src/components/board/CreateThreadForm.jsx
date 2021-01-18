@@ -32,7 +32,6 @@ export default function CreateThreadForm({ setIsFormOpen }) {
   const handleSubmit = (value) => {
   // console.log(value);
     const link = `${apiEndpoint}/threads${boardSlug}`;
-    console.log(link);
     axios.post(link, value).then((res) => console.log(res));
   };
   return (

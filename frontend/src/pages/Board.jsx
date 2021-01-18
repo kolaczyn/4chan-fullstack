@@ -29,7 +29,6 @@ export default function Board() {
       </Helmet>
       <Container>
         <SectionWrapper title={siteTitle}>
-          {/* <Container> */}
           {isFormOpen ? <CreateThreadForm setIsFormOpen={setIsFormOpen} /> : (
             <Button
               color="primary"

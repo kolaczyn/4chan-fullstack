@@ -14,11 +14,14 @@ export default function ThreadCard({
   const imgSrc = ext === '' ? `${baseImageUrl}default.png` : `${baseImageUrl}${board}-${id}.${ext}`;
   return (
     <Card outline className="mb-4">
-      <CardImg top width="100%" src={imgSrc} alt={subject || 'Thread thumbnail'} />
+      <Link to={threadUrl}>
+        <CardImg top width="100%" src={imgSrc} alt={subject || 'Thread thumbnail'} />
+      </Link>
       <CardBody>
-        <CardTitle tag="h6">{subject}</CardTitle>
-        <CardText>{comment}</CardText>
-        <Link className="stretched-link" to={threadUrl}>Read more...</Link>
+        <CardText className="small border-bottom font-italic">R: 100 / I: 16</CardText>
+        <CardTitle tag="h3" className="h6 font-weight-bold mt-2 mb-1">{subject}</CardTitle>
+        <CardText className="mb-1">{comment}</CardText>
+        <Link to={threadUrl}>Read more...</Link>
       </CardBody>
     </Card>
   );
