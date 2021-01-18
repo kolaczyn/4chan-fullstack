@@ -13,18 +13,14 @@ export default function ReplyCard({
   const imgSrc = ext === '' ? `${baseImageUrl}default.png` : `${baseImageUrl}${board}-${id}.${ext}`;
   const replyTitle = `${name} ${creationDate} No. ${id}`;
   return (
-    <>
-      <Card outline className="mb-2 d-flex flex-row flex-wrap">
-        {/* CardImg causes some problems that I'm unable to fix */}
-        {/* make the image a little more responsive on different viewports */}
-        <img style={{ maxWidth: '15rem' }} src={imgSrc} alt="" />
-        <CardBody>
-          <CardTitle>{replyTitle}</CardTitle>
-          <CardText tag="p" className="tag-block">{comment}</CardText>
-
-        </CardBody>
-      </Card>
-    </>
+    <Card outline className="mb-2 d-flex flex-row flex-wrap">
+      {/* TODO: put the image on top on mobile */}
+      <img style={{ width: '18vw' }} src={imgSrc} alt="reply" />
+      <CardBody>
+        <CardTitle>{replyTitle}</CardTitle>
+        <CardText tag="p" className="tag-block">{comment}</CardText>
+      </CardBody>
+    </Card>
   );
 }
 

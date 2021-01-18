@@ -4,7 +4,7 @@ import { Col, Container, Row } from 'reactstrap';
 
 import boards from '../../fixtures/boards.json';
 import slugToName from '../../const/slugToName.json';
-import HomeCard from '../common/SectionWrapper';
+import SectionWrapper from '../common/SectionWrapper';
 
 // make sure that the user is on top of the site after selecting a board
 const scrollToTheTop = () => {
@@ -14,7 +14,7 @@ const scrollToTheTop = () => {
 export default function BoardsList() {
   return (
     <Container>
-      <HomeCard title="Boards">
+      <SectionWrapper title="Boards">
         <Row>
           {boards.map((boardGroup) => (
             <Col sm="4" xs="12" lg="2" key={boardGroup.category}>
@@ -23,7 +23,7 @@ export default function BoardsList() {
             </Col>
           ))}
         </Row>
-      </HomeCard>
+      </SectionWrapper>
     </Container>
   );
 }

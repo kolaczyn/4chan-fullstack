@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Col, Container, Row } from 'reactstrap';
 
-import HomeCard from '../common/SectionWrapper';
+import SectionWrapper from '../common/SectionWrapper';
 import apiEndpoint from '../../const/apiEndpoint';
 
 const numberWithCommas = (str) => str.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -24,7 +24,7 @@ export default function Stats() {
   return (
     !isLoading && (
       <Container>
-        <HomeCard title="Stats">
+        <SectionWrapper title="Stats">
           <Row className="text-center">
             <Col>
               {'Total Posts: '}
@@ -39,7 +39,7 @@ export default function Stats() {
               {activeContent}
             </Col>
           </Row>
-        </HomeCard>
+        </SectionWrapper>
       </Container>
     )
   );

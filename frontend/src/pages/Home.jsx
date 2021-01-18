@@ -10,7 +10,6 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <meta charSet="utf-8" />
         <title>4chan</title>
       </Helmet>
 
