@@ -5,13 +5,13 @@ import { useField } from 'formik';
 import { FormGroup, Input, Label } from 'reactstrap';
 
 export default function TextFormField({
-  type, id, children, placeholder,
+  type, id, children, placeholder, ...rest
 }) {
   const [field, meta] = useField(id);
   return (
     <FormGroup>
       <Label htmlFor={id}>{children}</Label>
-      <Input placeholder={placeholder} {...field} id={id} type={type} />
+      <Input placeholder={placeholder} {...field} {...rest} id={id} type={type} />
     </FormGroup>
   );
 }

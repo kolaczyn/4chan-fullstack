@@ -14,7 +14,10 @@ export default function CloseableSectionWrapper({ title, ...props }) {
   useEffect(() => {
     // pretty bad name
     const storageState = localStorage.getItem(title);
-    console.log(storageState);
+    // it takes quite a lot of time to lookup localstorage
+    // because of that this component flashes for a frame or two
+    // TODO do something about it
+    // maybe looking at state from redux would solve this issue
     if (storageState === 'closed') setIsClosed(true);
   }, []);
 

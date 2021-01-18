@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 
 import useBoard from '../hooks/useBoard';
 import SectionWrapper from '../components/common/SectionWrapper';
-import CreateThreadForm from '../components/board/CreateThreadForm';
+import ThreadForm from '../components/form/ThreadForm';
 import ThreadsList from '../components/board/ThreadsList';
 
 export default function Board() {
@@ -24,7 +24,7 @@ export default function Board() {
       </Helmet>
       <Container>
         <SectionWrapper title={siteTitle}>
-          {isFormOpen ? <CreateThreadForm setIsFormOpen={setIsFormOpen} /> : (
+          {isFormOpen ? <ThreadForm setIsFormOpen={setIsFormOpen} /> : (
             <Button
               color="primary"
               onClick={toggleFormOpen}
