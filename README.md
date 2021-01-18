@@ -17,6 +17,7 @@ By making this project I wanted to show that I am able to both consume and creat
   * React Router
   * React Helmet
   * Formik
+  * Yup
 
 - Planned
   * TypeScript

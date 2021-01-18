@@ -1,20 +1,13 @@
-// I should probably re-enable these in the future
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/jsx-props-no-spreading */
-
-// TODO
-// this component is 90% similar to CreateThreadForm.jsx
-// find a way to share the logic these two components
-// maybe higher order components?
-
 import axios from 'axios';
 import { Form, Formik } from 'formik';
 import PropTypes from 'prop-types';
 import React from 'react';
+import * as yup from 'yup';
 import {
   Button,
 } from 'reactstrap';
+import { useHistory } from 'react-router-dom';
+
 import apiEndpoint from '../../const/apiEndpoint';
 import useBoard from '../../hooks/useBoard';
 import CheckboxFormField from './CheckboxFormField';
@@ -26,24 +19,46 @@ const initialValues = {
   notARobot: false,
 };
 
-export default function CreateReplyForm({ setIsFormOpen }) {
+const validationSchema = yup.object({
+  name: yup
+    .string()
+    .optional()
+    .max(24),
+  comment: yup
+    .string()
+    .required('You need at least some text in your reply')
+    .max(1000),
+  notARobot: yup.bool().required().oneOf([true], 'You must not be a robot to start a new thread'),
+});
+
+export default function CreateThreadForm({ setIsFormOpen }) {
   const { boardSlug } = useBoard();
+  const history = useHistory();
+
   const handleSubmit = (value) => {
     setTimeout(() => {
-      console.log(value);
-      const link = `${apiEndpoint}/threads${boardSlug}`;
-      axios.post(link, value).then((res) => console.log(res));
-    },
-    1000);
+      const link = `${apiEndpoint}/threads/${boardSlug}`;
+      axios.post(link, value).then((res) => {
+        const { id } = res.data;
+        history.push(`/${boardSlug}/thread/${id}`);
+      });
+    }, 1000);
   };
+
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-      {({ isSubmitting }) => (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ isSubmitting, isValid, ...rest }) => (
+        // I don't like it that the Submit button can be disabled before errors are shown
+        // e.g. when tab over to Subject
         <Form>
-          <TextFormField id="name" name="name" placeholder="Anonymous">Name</TextFormField>
-          <TextFormField id="comment" name="comment">Comment</TextFormField>
+          <TextFormField id="name" name="name" placeholder="Anonymous" autoComplete="off">Name</TextFormField>
+          <TextFormField rows="5" type="textarea" id="comment" name="comment">Comment</TextFormField>
           <CheckboxFormField id="notARobot" name="notARobot">I am not a robot</CheckboxFormField>
-          <Button disabled={isSubmitting} type="submit" color="primary" className="mr-2">
+          <Button disabled={isSubmitting || !isValid} type="submit" color="primary" className="mr-2">
             {isSubmitting ? 'Submitting...' : 'Submit'}
           </Button>
           <Button
@@ -60,6 +75,6 @@ export default function CreateReplyForm({ setIsFormOpen }) {
   );
 }
 
-CreateReplyForm.propTypes = {
+CreateThreadForm.propTypes = {
   setIsFormOpen: PropTypes.func.isRequired,
 };

@@ -2,16 +2,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useField } from 'formik';
-import { FormGroup, Input, Label } from 'reactstrap';
+import {
+  FormFeedback, FormGroup, Input, Label,
+} from 'reactstrap';
 
 export default function TextFormField({
   type, id, children, placeholder, ...rest
 }) {
   const [field, meta] = useField(id);
+  const errorText = meta.error && meta.touched ? meta.error : '';
   return (
     <FormGroup>
       <Label htmlFor={id}>{children}</Label>
-      <Input placeholder={placeholder} {...field} {...rest} id={id} type={type} />
+      <Input
+        invalid={!!errorText}
+        placeholder={placeholder}
+        {...field}
+        {...rest}
+        id={id}
+        type={type}
+      />
+      {/* {meta.error && <FormFeedback>{meta.error}</FormFeedback>} */}
+      <FormFeedback>{errorText}</FormFeedback>
     </FormGroup>
   );
 }
