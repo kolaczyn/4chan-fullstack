@@ -14,7 +14,7 @@ export default function PopularThreads() {
 
   useEffect(() => {
     // link is a dumb name
-    const link = `${apiEndpoint}/popular`;
+    const link = `${apiEndpoint}/threads/popular`;
     axios.get(link).then((res) => {
       setPopularThreads(res.data);
       setIsLoading(false);

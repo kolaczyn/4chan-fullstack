@@ -3,23 +3,23 @@ import axios from 'axios';
 import { Col, Container, Row } from 'reactstrap';
 
 import HomeCard from '../common/SectionWrapper';
-import { totalPosts, currentUsers, activeContent } from '../../fixtures/stats.json';
 import apiEndpoint from '../../const/apiEndpoint';
 
 const numberWithCommas = (str) => str.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-// stole from Stack Overflow
+// stolen from Stack Overflow
 
 export default function Stats() {
   const [isLoading, setIsLoading] = useState(true);
   const [stats, setStats] = useState({});
 
   useEffect(() => {
-    const link = `${apiEndpoint}/stats`;
+    const link = `${apiEndpoint}/misc/stats`;
     axios.get(link).then((res) => {
       setStats(res.data);
       setIsLoading(false);
     });
   }, []);
+  const { activeContent, currentUsers, totalPosts } = stats;
 
   return (
     !isLoading && (
@@ -31,7 +31,7 @@ export default function Stats() {
               {numberWithCommas(totalPosts)}
             </Col>
             <Col>
-              {'Current Users; '}
+              {'Current Users: '}
               {numberWithCommas(currentUsers)}
             </Col>
             <Col>

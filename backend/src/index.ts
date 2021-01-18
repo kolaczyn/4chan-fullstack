@@ -4,6 +4,10 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/4chan', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log('Connected to MongoDB...')).catch((err: Error) => console.error('Could not connect to MongoDB...', err));
+
 const documentation = require('./routes/documentation');
 const miscRoutes = require('./routes/misc');
 const threadsRoutes = require('./routes/threads');
