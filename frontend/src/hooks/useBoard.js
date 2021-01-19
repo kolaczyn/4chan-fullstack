@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import slugToName from '../const/slugToName.json';
+import slugToName from '../const/slugToName';
 
 export default function useBoard() {
   const [boardSlug, _, threadId] = useLocation().pathname.split('/').filter((str) => str !== '');
@@ -9,7 +9,7 @@ export default function useBoard() {
 
   useEffect(() => {
     setBoardName(slugToName[boardSlug.replaceAll('/', '')]);
-  }, [boardSlug, threadId]);
+  }, [boardSlug]);
 
   return { boardSlug, boardName, threadId };
 }

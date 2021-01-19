@@ -5,7 +5,7 @@ import {
   DropdownToggle, DropdownItem,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import SectionWrapper from '../common/SectionWrapper';
 
@@ -24,8 +24,6 @@ export default function ControlButtons({ top, bottom }) {
   const [isImgOpen, setIsImgOpen] = useState(false);
   const [isCommentOpen, setIsCommentOpen] = useState(false);
 
-  const gotoArchive = () => history.push('archive');
-
   // TODO: this is dumb. just make it an array or something
   const toggleIsSortOpen = () => setIsSortOpen((old) => !old);
   const toggleIsImgOpen = () => setIsImgOpen((old) => !old);
@@ -42,7 +40,9 @@ export default function ControlButtons({ top, bottom }) {
         <div className="d-flex justify-content-between">
           <ButtonGroup>
             {/* I don't like that the button is a link. TODO do something about it */}
-            <Button outline color="success" onClick={gotoArchive}>Archive</Button>
+            <Link to="/archive">
+              <Button outline color="success">Archive</Button>
+            </Link>
             {top
               && <Button onClick={goTop} outline color="info">Top</Button>}
             {bottom

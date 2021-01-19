@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Col, Container, Row } from 'reactstrap';
 
 import boards from '../../fixtures/boards.json';
-import slugToName from '../../const/slugToName.json';
+import slugToName from '../../const/slugToName';
 import SectionWrapper from '../common/SectionWrapper';
 
 // make sure that the user is on top of the site after selecting a board

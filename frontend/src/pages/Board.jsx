@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Container } from 'reactstrap';
 import { Helmet } from 'react-helmet';
 
+import { useHistory } from 'react-router-dom';
 import useBoard from '../hooks/useBoard';
 import SectionWrapper from '../components/common/SectionWrapper';
 import ThreadForm from '../components/form/ThreadForm';
@@ -16,6 +17,14 @@ export default function Board() {
   };
 
   const { boardSlug, boardName } = useBoard();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (boardName === undefined) {
+      history.push('/404');
+    }
+  }, [boardSlug, boardName]);
+
   const siteTitle = `/${boardSlug}/ - ${boardName} - 4chan`;
 
   return (
@@ -35,7 +44,7 @@ export default function Board() {
           )}
         </SectionWrapper>
       </Container>
-      {/* yeah, the naming is kinda confusing */}
+      {/* yeah, the name is kinda confusing */}
       <BoardControls bottom />
       <ThreadsList />
       <BoardControls top />
