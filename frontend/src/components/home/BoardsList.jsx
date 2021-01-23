@@ -11,6 +11,11 @@ const scrollToTheTop = () => {
   window.scrollTo(0, 0);
 };
 
+const to = (board) => ({
+  pathname: `${board}/`,
+  state: board,
+});
+
 export default function BoardsList() {
   return (
     <Container>
@@ -19,7 +24,16 @@ export default function BoardsList() {
           {boards.map((boardGroup) => (
             <Col sm="4" xs="12" lg="2" key={boardGroup.category}>
               <h6>{boardGroup.category}</h6>
-              {boardGroup.list.map((board) => <Link onClick={scrollToTheTop} key={board} style={{ display: 'block' }} to={`${board}/`}>{slugToName[board]}</Link>)}
+              {boardGroup.list.map((board) => (
+                <Link
+                  onClick={scrollToTheTop}
+                  key={board}
+                  style={{ display: 'block' }}
+                  to={to(board)}
+                >
+                  {slugToName[board]}
+                </Link>
+              ))}
             </Col>
           ))}
         </Row>

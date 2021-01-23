@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Container } from 'reactstrap';
 import { Helmet } from 'react-helmet';
+import { useHistory, useLocation } from 'react-router-dom';
 
-import { useHistory } from 'react-router-dom';
 import useBoard from '../hooks/useBoard';
 import SectionWrapper from '../components/common/SectionWrapper';
 import ThreadForm from '../components/form/ThreadForm';

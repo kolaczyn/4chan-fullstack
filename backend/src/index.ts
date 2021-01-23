@@ -1,18 +1,28 @@
 /* eslint-disable import/no-unresolved */
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import winston from 'winston';
 
-const mongoose = require('mongoose');
+import documentation from './routes/documentation';
+import miscRoutes from './routes/misc';
+import threadsRoutes from './routes/threads';
 
-mongoose.connect('mongodb://localhost/4chan', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log('Connected to MongoDB...')).catch((err: Error) => console.error('Could not connect to MongoDB...', err));
+dotenv.config();
+const logger = winston.createLogger({
+  format: winston.format.simple(),
+  transports: [
+    new winston.transports.Console(),
+  ],
+});
 
-const documentation = require('./routes/documentation');
-const miscRoutes = require('./routes/misc');
-const threadsRoutes = require('./routes/threads');
-
-require('dotenv').config();
+mongoose.connect('mongodb://localhost/4chan',
+  { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => logger.info('Connected to MongoDB...'))
+  .catch((err: Error) => logger.info('Could not connect to MongoDB...', err));
 
 const app = express();
 
@@ -35,5 +45,5 @@ app.use('/api/misc', miscRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Listening on port: ${PORT}`);
+  logger.info(`Listening on port: ${PORT}`);
 });
