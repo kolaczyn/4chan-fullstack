@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -10,6 +9,14 @@ import winston from 'winston';
 import documentation from './routes/documentation';
 import miscRoutes from './routes/misc';
 import threadsRoutes from './routes/threads';
+
+// // ----------- Uncomment this and run once ---------------
+// import populateBoards from './populate/boards';
+// import populateThreads from './populate/threads';
+
+// populateBoards();
+// populateThreads();
+// // -------------------------------------------------------
 
 dotenv.config();
 const logger = winston.createLogger({
@@ -43,7 +50,7 @@ app.use('/', documentation);
 app.use('/api/threads', threadsRoutes);
 app.use('/api/misc', miscRoutes);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   logger.info(`Listening on port: ${PORT}`);
 });

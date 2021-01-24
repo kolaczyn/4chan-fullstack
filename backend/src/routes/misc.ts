@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/extensions */
 import express, { Request, Response } from 'express';
 
 import StatsModel from '../models/stats.model';
