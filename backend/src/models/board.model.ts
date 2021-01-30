@@ -1,12 +1,16 @@
 import { Schema, model } from 'mongoose';
-import { ThreadSchema } from './thread.model';
 
 const BoardSchema = new Schema({
   slug: String,
   name: String,
   threads: {
-    type: [ThreadSchema],
     default: [],
+    type: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'thread',
+      },
+    ],
   },
 });
 

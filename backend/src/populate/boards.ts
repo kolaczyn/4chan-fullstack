@@ -65,9 +65,4 @@ const boards: Array<{ slug: String, name: String }> = [
   { slug: 'vip', name: 'Very Important Posts' },
 ];
 
-// export default () => Object.keys(boards).forEach((slug) => createBoard({
-//   slug,
-//   name: boards[slug],
-// }));
-
 export default () => boards.forEach((board) => createBoard(board));

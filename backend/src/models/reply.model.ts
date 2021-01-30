@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose';
 
 const ReplySchema = new Schema({
-  replyId: Number,
   comment: String,
   name: { type: String, default: '' },
   createTime: { type: Date, default: Date.now },

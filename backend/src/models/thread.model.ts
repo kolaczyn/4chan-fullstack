@@ -3,15 +3,14 @@ import { ReplySchema } from './reply.model';
 
 const ThreadSchema = new Schema({
   subject: String,
-  initialPost: ReplySchema,
-  replies: { type: [ReplySchema], default: [] },
+  replies: [ReplySchema],
 });
 
 ThreadSchema.method({});
 
 ThreadSchema.static({});
 
-const Thread = model('Theads', ThreadSchema);
+const Thread = model('Threads', ThreadSchema);
 
 export default Thread;
 export { ThreadSchema };
