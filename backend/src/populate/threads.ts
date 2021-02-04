@@ -27,6 +27,7 @@ const createThread = async (threadData: ThreadDataType) => {
     subject,
     replies: [initialPost],
     _id: threadId,
+    board: boardSlug,
   });
 
   const savedThread = await thread.save();

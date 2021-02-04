@@ -24,7 +24,8 @@ router.get('/:slug', async (req: Request, res: Response) => {
   const { slug } = req.params;
   if (!(slug in slugToName)) return res.status(400).send('Invalid board name');
 
-  const board = await BoardModel.find({ slug }).populate('threads');
+  const board = await BoardModel.findOne({ slug }).populate('threads');
+  console.log(board);
   return res.send(board);
 });
 
@@ -67,6 +68,7 @@ router.post('/:slug', async (req: Request, res: Response) => {
   const thread = new ThreadModel({
     subject,
     replies: [initialPost],
+    board: slug,
   });
 
   const result = await thread.save();

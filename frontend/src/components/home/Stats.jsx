@@ -5,8 +5,8 @@ import { Col, Container, Row } from 'reactstrap';
 import SectionWrapper from '../common/SectionWrapper';
 import apiEndpoint from '../../const/apiEndpoint';
 
-const numberWithCommas = (str) => str.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 // stolen from Stack Overflow
+const numberWithCommas = (str) => str.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 export default function Stats() {
   const [isLoading, setIsLoading] = useState(true);

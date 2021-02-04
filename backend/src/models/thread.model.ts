@@ -3,6 +3,7 @@ import { ReplySchema } from './reply.model';
 
 const ThreadSchema = new Schema({
   subject: String,
+  board: String,
   replies: [ReplySchema],
 });
 

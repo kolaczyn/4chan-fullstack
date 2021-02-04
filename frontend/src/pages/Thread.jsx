@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-props-no-spreading */
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
@@ -16,12 +17,15 @@ import useBoard from '../hooks/useBoard';
 export default function Thread() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [replies, setReplies] = useState([]);
+  const [subject, setSubject] = useState('');
   const { boardSlug, boardName, threadId } = useBoard();
 
   useEffect(() => {
-    const link = `${apiEndpoint}/threads/${boardSlug}`;
+    // FIXME fetch a thread, not a board
+    const link = `${apiEndpoint}/threads/${boardSlug}/${threadId}`;
     axios.get(link).then((res) => {
-      setReplies(res.data);
+      setSubject(res.data.subject);
+      setReplies(res.data.replies);
     });
   }, []);
   const toggleFormOpen = () => setIsFormOpen((old) => !old);
@@ -39,13 +43,25 @@ export default function Thread() {
               color="primary"
               onClick={toggleFormOpen}
             >
-              Start a New Thread
+              Post a Reply
             </Button>
           )}
         </SectionWrapper>
       </Container>
       <Container>
-        {replies.map((reply) => <ReplyCard key={reply.id} {...reply} />)}
+        {replies.map((reply, idx) => (
+          <ReplyCard
+            key={reply._id}
+            board={reply.board}
+            comment={reply.comment}
+            _id={reply._id}
+          >
+            {/* put subject in the first reply */}
+            {idx === 0 && <b>{subject}</b>}
+            { ' '}
+            {reply.comment}
+          </ReplyCard>
+        ))}
       </Container>
     </>
   );

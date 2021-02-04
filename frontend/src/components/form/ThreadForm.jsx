@@ -44,8 +44,8 @@ export default function CreateThreadForm({ setIsFormOpen }) {
     setTimeout(() => {
       const link = `${apiEndpoint}/threads/${boardSlug}`;
       axios.post(link, value).then((res) => {
-        const { id } = res.data;
-        history.push(`/${boardSlug}/thread/${id}`);
+        const { _id } = res.data;
+        history.push(`/${boardSlug}/thread/${_id}`);
       });
     }, 1000);
   };

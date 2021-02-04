@@ -8,10 +8,10 @@ import { Link } from 'react-router-dom';
 import baseImageUrl from '../../const/baseImageUrl';
 
 export default function ThreadCard({
-  board, ext, subject, comment, id,
+  board, ext, subject, comment, _id,
 }) {
-  const threadUrl = `/${board}/thread/${id}`;
-  const imgSrc = ext === '' ? `${baseImageUrl}default.png` : `${baseImageUrl}${board}-${id}.${ext}`;
+  const threadUrl = `/${board}/thread/${_id}`;
+  const imgSrc = ext === '' ? `${baseImageUrl}default.png` : `${baseImageUrl}${board}-${_id}.${ext}`;
   return (
     <Card outline className="mb-4">
       <Link to={threadUrl}>
@@ -29,13 +29,14 @@ export default function ThreadCard({
 
 ThreadCard.propTypes = {
   board: PropTypes.string.isRequired,
-  ext: PropTypes.string.isRequired,
+  ext: PropTypes.string,
   subject: PropTypes.string,
   comment: PropTypes.string,
-  id: PropTypes.number.isRequired,
+  _id: PropTypes.string.isRequired,
 };
 
 ThreadCard.defaultProps = {
+  ext: '',
   subject: '',
   comment: '',
 };
