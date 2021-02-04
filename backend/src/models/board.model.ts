@@ -8,7 +8,7 @@ const BoardSchema = new Schema({
     type: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'thread',
+        ref: 'Threads',
       },
     ],
   },

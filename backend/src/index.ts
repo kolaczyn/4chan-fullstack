@@ -10,9 +10,9 @@ import documentation from './routes/documentation';
 import miscRoutes from './routes/misc';
 import threadsRoutes from './routes/threads';
 
-import populateBoards from './populate/boards';
-import populateThreads from './populate/threads';
-import populateReplies from './populate/replies';
+// import populateBoards from './populate/boards';
+// import populateThreads from './populate/threads';
+// import populateReplies from './populate/replies';
 
 dotenv.config();
 const logger = winston.createLogger({

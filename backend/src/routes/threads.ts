@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express';
 
 import slugToName from '../const/slugToName.json';
 import ThreadModel from '../models/thread.model';
+import ReplyModel from '../models/reply.model';
+import BoardModel from '../models/board.model';
 
 const router = express.Router();
 
@@ -18,52 +20,80 @@ router.get('/popular', async (req: Request, res: Response) => {
   // res.send(theads.slice(0, 8));
 });
 
-router.get('/:board', async (req: Request, res: Response) => {
-  const { board } = req.params;
-  if (!(board in slugToName)) return res.status(400).send('Invalid board name');
+router.get('/:slug', async (req: Request, res: Response) => {
+  const { slug } = req.params;
+  if (!(slug in slugToName)) return res.status(400).send('Invalid board name');
 
-  const threads = await ThreadModel.find({ board });
-  return res.send(threads);
+  const board = await BoardModel.find({ slug }).populate('threads');
+  return res.send(board);
 });
 
-router.get('/:board/:id', async (req: Request, res: Response) => {
-  const { board, id } = req.params;
-  if (!(board in slugToName)) return res.status(400).send('Invalid board name');
+router.get('/:slug/:id', async (req: Request, res: Response) => {
+  const { slug, id } = req.params;
+  if (!(slug in slugToName)) return res.status(400).send('Invalid board name');
+  console.log(id);
 
-  const thread = await ThreadModel.findOne({ board, id });
-  if (!thread) return res.status(404).send('Thread not found');
-  return res.send(thread);
+  // const board = await BoardModel.findOne({ slug });
+  try {
+    const thread = await ThreadModel.findById(id);
+    if (!thread) return res.status(404).send('Thread not found');
+    return res.send(thread);
+  } catch (ex) {
+    return res.status(400).send('Invalid board id');
+  }
+  // console.log(thread);
 });
 
-router.post('/:board', async (req: Request, res: Response) => {
-  const { board } = req.params;
+// post a thread
+router.post('/:slug', async (req: Request, res: Response) => {
+  const { slug } = req.params;
+  // TODO maybe I should redirect the request to post reply afte creating the thread?
   // I use this exact line of code in few other places
   // TODO see if there's a way to fix that
-  if (!(board in slugToName)) return res.status(400).send('Invalid board name');
+  if (!(slug in slugToName)) return res.status(400).send('Invalid board name');
 
   const {
-    subject, comment,
+    subject, comment, name,
   } = req.body;
 
   // TODO: make it so:
   // request is good <=> there's at least one nonwhitespace character in subject OR comment
   if (!subject && !comment) return res.status(400).send('No subject and comment');
 
-  // for now I autoincrement id number.
-  // will have to find a more optimal way of doing this
-  const allThreads = await ThreadModel.find({ board });
-  const id = allThreads.length + 1;
+  const initialPost = new ReplyModel({
+    name, comment,
+  });
 
   const thread = new ThreadModel({
-    board,
-    id,
     subject,
-    comment,
-    ext: '',
+    replies: [initialPost],
   });
 
   const result = await thread.save();
+  const { _id } = result;
+
+  // update the board
+  const board = await BoardModel.findOne({ slug });
+  board.threads.push(_id);
+  await board.save();
   return res.send(result);
+});
+
+// post a reply to a thread
+router.post('/:slug/:threadId', async (req: Request, res: Response) => {
+  const { slug, threadId } = req.params;
+
+  const { comment, name } = req.body;
+  if (!comment) return res.status(400).send('No comment provided');
+
+  const reply = new ReplyModel({
+    comment, name,
+  });
+
+  const thread = await ThreadModel.findById(threadId);
+  thread.replies.push(reply);
+  const result = await thread.save();
+  return res.send(reply);
 });
 
 export default router;
