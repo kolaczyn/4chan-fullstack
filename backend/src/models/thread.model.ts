@@ -1,11 +1,17 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
+import { ReplySchema } from './reply.model';
 
-const threadSchema = new mongoose.Schema({
-  board: String,
-  ext: String,
+const ThreadSchema = new Schema({
   subject: String,
-  comment: String,
-  id: Number,
+  board: String,
+  replies: [ReplySchema],
 });
 
-export default mongoose.model('Thread', threadSchema);
+ThreadSchema.method({});
+
+ThreadSchema.static({});
+
+const Thread = model('Threads', ThreadSchema);
+
+export default Thread;
+export { ThreadSchema };

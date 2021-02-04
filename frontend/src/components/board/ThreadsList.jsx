@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-props-no-spreading */
 import { useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
@@ -14,14 +15,14 @@ export default function ThreadsList() {
   useEffect(() => {
     const link = `${apiEndpoint}/threads${boardSlug}`;
     axios.get(link).then((res) => {
-      setThreads(res.data);
+      setThreads(res.data.threads);
     });
   }, []);
 
   return (
     <Container fluid>
       <Row>
-        {threads.map((thread) => <Col key={`${thread.board}-${thread.id}`} xl="2" md="3" sm="4" xs="6"><ThreadCard {...thread} /></Col>)}
+        {threads.map((thread) => <Col key={thread._id} xl="2" md="3" sm="4" xs="6"><ThreadCard {...thread} /></Col>)}
       </Row>
     </Container>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
@@ -13,7 +14,6 @@ export default function PopularThreads() {
   const [popularThreads, setPopularThreads] = useState([]);
 
   useEffect(() => {
-    // link is a dumb name
     const link = `${apiEndpoint}/threads/popular`;
     axios.get(link).then((res) => {
       setPopularThreads(res.data);
@@ -27,7 +27,7 @@ export default function PopularThreads() {
     <Container>
       <SectionWrapper title="Popular Threads">
         <Row>
-          {popularThreads.map((thread) => <Col lg="3" md="6" xs="12" key={`${thread.board}-${thread.id}`}><ThreadCard {...thread} /></Col>)}
+          {popularThreads.map((thread) => <Col lg="3" md="6" xs="12" key={thread._id}><ThreadCard {...thread} /></Col>)}
         </Row>
       </SectionWrapper>
     </Container>

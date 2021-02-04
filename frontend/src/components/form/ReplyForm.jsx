@@ -32,15 +32,14 @@ const validationSchema = yup.object({
 });
 
 export default function CreateThreadForm({ setIsFormOpen }) {
-  const { boardSlug } = useBoard();
+  const { boardSlug, threadId } = useBoard();
   const history = useHistory();
 
   const handleSubmit = (value) => {
     setTimeout(() => {
-      const link = `${apiEndpoint}/threads/${boardSlug}`;
+      const link = `${apiEndpoint}/threads/${boardSlug}/${threadId}`;
       axios.post(link, value).then((res) => {
-        const { id } = res.data;
-        history.push(`/${boardSlug}/thread/${id}`);
+        history.go(0);
       });
     }, 1000);
   };

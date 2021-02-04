@@ -44,7 +44,7 @@ export default function Board() {
           )}
         </SectionWrapper>
       </Container>
-      {/* yeah, the name is kinda confusing */}
+      {/* yeah, the names are kinda confusing */}
       <BoardControls bottom />
       <ThreadsList />
       <BoardControls top />
