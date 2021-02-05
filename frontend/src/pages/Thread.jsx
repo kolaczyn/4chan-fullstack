@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-props-no-spreading */
 import axios from 'axios';
@@ -11,8 +12,9 @@ import SectionWrapper from '../components/common/SectionWrapper';
 import ReplyForm from '../components/form/ReplyForm';
 
 import ReplyCard from '../components/thread/ReplyCard';
-import apiEndpoint from '../const/apiEndpoint';
+import apiEndpoint from '../static/const/apiEndpoint';
 import useBoard from '../hooks/useBoard';
+import greentextify from '../utils/greentextify';
 
 export default function Thread() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -59,7 +61,7 @@ export default function Thread() {
             {/* put subject in the first reply */}
             {idx === 0 && <b>{subject}</b>}
             { ' '}
-            {reply.comment}
+            {greentextify(reply.comment)}
           </ReplyCard>
         ))}
       </Container>

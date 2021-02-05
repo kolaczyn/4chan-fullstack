@@ -8,7 +8,7 @@ import {
 } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
 
-import apiEndpoint from '../../const/apiEndpoint';
+import apiEndpoint from '../../static/const/apiEndpoint';
 import useBoard from '../../hooks/useBoard';
 import CheckboxFormField from './CheckboxFormField';
 import TextFormField from './TextFormField';

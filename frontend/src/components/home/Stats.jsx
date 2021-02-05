@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Col, Container, Row } from 'reactstrap';
 
 import SectionWrapper from '../common/SectionWrapper';
-import apiEndpoint from '../../const/apiEndpoint';
+import apiEndpoint from '../../static/const/apiEndpoint';
 
 // stolen from Stack Overflow
 const numberWithCommas = (str) => str.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');

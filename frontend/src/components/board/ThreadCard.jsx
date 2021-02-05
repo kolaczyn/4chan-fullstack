@@ -5,7 +5,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-import baseImageUrl from '../../const/baseImageUrl';
+import baseImageUrl from '../../static/const/baseImageUrl';
 
 export default function ThreadCard({
   board, ext, subject, comment, _id,
