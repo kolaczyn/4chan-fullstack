@@ -53,8 +53,10 @@ git clone https://github.com/kolaczyn/4chan-fullstack.git
 cd 4chan-fullstack
 # run backend
 cd backend
+npm install
 npm run dev
 # run frontend (in a seperate terminal)
 cd frontend
+npm install
 npm start
 ```
