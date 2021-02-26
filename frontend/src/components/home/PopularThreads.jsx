@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import axios from 'axios';
 
-import apiEndpoint from '../../const/apiEndpoint';
+import apiEndpoint from '../../static/const/apiEndpoint';
 import SectionWrapper from '../common/SectionWrapper';
 import ThreadCard from '../board/ThreadCard';
 

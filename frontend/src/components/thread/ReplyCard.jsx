@@ -4,7 +4,7 @@ import {
   CardImg, Card, CardText, CardTitle, CardBody,
 } from 'reactstrap';
 
-import baseImageUrl from '../../const/baseImageUrl';
+import baseImageUrl from '../../static/const/baseImageUrl';
 
 export default function ReplyCard({
   ext, _id, name, children,

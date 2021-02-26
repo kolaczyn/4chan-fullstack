@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import slugToName from '../const/slugToName';
+import slugToName from '../static/const/slugToName';
 
 export default function useBoard() {
   const location = useLocation();
