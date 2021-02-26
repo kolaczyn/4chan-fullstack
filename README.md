@@ -1,53 +1,60 @@
 # Fullstack 4chan clone
 
+1. [About](#about)
+1. [Features](#features)
+1. [Used Technologies](#used-technologies)
+1. [Setup](#setup)
+
 ## About
 
-This is meant to be quite simple fullstack 4chan clone, with React on the front end and Node on the back end.  
-By making this project I wanted to show that I am able to both consume and create a RESTful API.
+It's a fullstack 4chan clone with React on the frontend and Node on the backend.  
+I wanted to show that I am able to both consume and create a RESTful APIs by making this project.
 
-## Technology
+## Features
 
-### Front end
+- Decent looking frontend
+- List of popular threads
+- You can access any board
+- You can create threads
+- You can reply to threads
+- <section style="color: #7f9540;">>greentext</section>
 
-- Already in use
-  * React
-  * Bootstrap
-  * Reactstrap
-  * Styled Components
-  * React Router
-  * React Helmet
-  * Formik
-  * Yup
+## Used Technologies
 
-- Planned
-  * TypeScript
-  * Redux
-  * Redux Thunk
-  * Jest
-  * Maybe Next
-  * Maybe React Query
+### Frontend
 
-### Back end
+- React
+  - Styled Components
+  - React Router
+  - React Helmet
+  - React Testing Libarary
 
-- Already in use
-  * Node
-  * Express
-  * TypeScript
+- Bootstrap (through Reactstrap)
+- Jest
+- Formik
+- Yup
 
-- Planned
-  * MongoDB
-  * Mongoose
-  * Jest
+### Backend
 
-## How to run
+* Node with Express
+* TypeScript
+* Mongoose
+* MongoDB
 
-```
-git clone https://github.com/kolaczyn/4chan-fullstack
+## Setup
+
+You first need to have MongoDB installed on your system and have its server running.  
+You can find the instructions on how to do that [here](https://duckduckgo.com/?q=MongoDB+setup).
+
+Then run the following commands:
+
+```bash
+git clone https://github.com/kolaczyn/4chan-fullstack.git
 cd 4chan-fullstack
-# run frontend
-cd frontend
-yarn start
 # run backend
 cd backend
-yarn dev
+npm run dev
+# run frontend (in a seperate terminal)
+cd frontend
+npm start
 ```
