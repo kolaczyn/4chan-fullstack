@@ -7,6 +7,14 @@ import BoardModel from '../models/board.model';
 
 const router = express.Router();
 
+const checkIfBoardExists = (
+  req: Request,
+  res: Response,
+) => {
+  const { slug } = req.params;
+  if (!(slug in slugToName)) return res.status(400).send('Invalid board name');
+};
+
 router.get('/', async (req: Request, res: Response) => {
   const allThreads = await ThreadModel.find();
   res.send(allThreads);
@@ -17,24 +25,20 @@ router.get('/popular', async (req: Request, res: Response) => {
   const popularThreads = await ThreadModel.find().limit(8);
 
   return res.send(popularThreads);
-  // res.send(theads.slice(0, 8));
 });
 
 router.get('/:slug', async (req: Request, res: Response) => {
+  checkIfBoardExists(req, res);
   const { slug } = req.params;
-  if (!(slug in slugToName)) return res.status(400).send('Invalid board name');
 
   const board = await BoardModel.findOne({ slug }).populate('threads');
-  console.log(board);
+
   return res.send(board);
 });
 
 router.get('/:slug/:id', async (req: Request, res: Response) => {
-  const { slug, id } = req.params;
-  if (!(slug in slugToName)) return res.status(400).send('Invalid board name');
-  console.log(id);
+  const { id } = req.params;
 
-  // const board = await BoardModel.findOne({ slug });
   try {
     const thread = await ThreadModel.findById(id);
     if (!thread) return res.status(404).send('Thread not found');
@@ -42,27 +46,22 @@ router.get('/:slug/:id', async (req: Request, res: Response) => {
   } catch (ex) {
     return res.status(400).send('Invalid board id');
   }
-  // console.log(thread);
 });
 
 // post a thread
 router.post('/:slug', async (req: Request, res: Response) => {
+  checkIfBoardExists(req, res);
   const { slug } = req.params;
-  // TODO maybe I should redirect the request to post reply afte creating the thread?
-  // I use this exact line of code in few other places
-  // TODO see if there's a way to fix that
-  if (!(slug in slugToName)) return res.status(400).send('Invalid board name');
 
-  const {
-    subject, comment, name,
-  } = req.body;
+  const { subject, comment, name } = req.body;
 
-  // TODO: make it so:
-  // request is good <=> there's at least one nonwhitespace character in subject OR comment
-  if (!subject && !comment) return res.status(400).send('No subject and comment');
+  if (!subject && !comment) {
+    return res.status(400).send('No subject and comment');
+  }
 
   const initialPost = new ReplyModel({
-    name, comment,
+    name,
+    comment,
   });
 
   const thread = new ThreadModel({
@@ -83,18 +82,21 @@ router.post('/:slug', async (req: Request, res: Response) => {
 
 // post a reply to a thread
 router.post('/:slug/:threadId', async (req: Request, res: Response) => {
-  const { slug, threadId } = req.params;
+  checkIfBoardExists(req, res);
+  const { threadId } = req.params;
 
   const { comment, name } = req.body;
   if (!comment) return res.status(400).send('No comment provided');
 
   const reply = new ReplyModel({
-    comment, name,
+    comment,
+    name,
   });
 
   const thread = await ThreadModel.findById(threadId);
   thread.replies.push(reply);
-  const result = await thread.save();
+  await thread.save();
+
   return res.send(reply);
 });
 
