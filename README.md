@@ -57,6 +57,9 @@ npm install
 npm run dev
 # run frontend (in a seperate terminal)
 cd frontend
+# tell where the backend is located in .env file
+# use .env.example as an example and edit it
+cat .env.example > .env
 npm install
 npm start
 ```
