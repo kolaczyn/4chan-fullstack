@@ -3,30 +3,23 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import mongoose from 'mongoose';
 import winston from 'winston';
 
+import connectToDb from './dbUtils/connectToDb';
 import documentation from './routes/documentation';
 import miscRoutes from './routes/misc';
 import threadsRoutes from './routes/threads';
 
-// import populateBoards from './populate/boards';
-// import populateThreads from './populate/threads';
-// import populateReplies from './populate/replies';
-
 dotenv.config();
+
 const logger = winston.createLogger({
   format: winston.format.simple(),
   transports: [new winston.transports.Console()],
 });
 
-mongoose
-  .connect('mongodb://localhost/4chan', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => logger.info('Connected to MongoDB...'))
-  .catch((err: Error) => logger.info('Could not connect to MongoDB...', err));
+// import populateBoards from './populate/boards';
+// import populateThreads from './populate/threads';
+// import populateReplies from './populate/replies';
 
 // const populateDb = async () => {
 //   // for some reason I have to uncomment the first line, run the app,
@@ -59,7 +52,14 @@ app.use('/', documentation);
 app.use('/api/threads', threadsRoutes);
 app.use('/api/misc', miscRoutes);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  logger.info(`Listening on port: ${PORT}`);
-});
+// I put it in async function to make sure I first connect
+// to db, and then start the server
+const startServer = async () => {
+  await connectToDb();
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    logger.info(`Listening on port: ${PORT}`);
+  });
+};
+
+startServer();

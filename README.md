@@ -54,6 +54,9 @@ cd 4chan-fullstack
 # run backend
 cd backend
 npm install
+# tell the port number and Mongo server info.
+# use .env.example as an example and edit it
+cat .env.example > .env
 npm run dev
 # run frontend (in a seperate terminal)
 cd frontend
