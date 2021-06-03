@@ -1,4 +1,4 @@
-import Board from '../models/board.model';
+/* import Board from '../models/board.model'; */
 import Thread from '../models/thread.model';
 import Reply from '../models/reply.model';
 
@@ -15,7 +15,7 @@ interface ReplyData {
 
 const createReply = async (replyData: ReplyData) => {
   const { comment, name, threadInfo } = replyData;
-  const { boardSlug, threadId } = threadInfo;
+  const { threadId } = threadInfo;
 
   const reply = new Reply({
     comment,
@@ -26,6 +26,7 @@ const createReply = async (replyData: ReplyData) => {
   thread.replies.push(reply);
 
   const result = await thread.save();
+  // eslint-disable-next-line no-console
   console.log(result);
 };
 
@@ -35,14 +36,14 @@ const repliesData: Array<ReplyData> = [
     name: 'trip',
     threadInfo: {
       boardSlug: 'g',
-      threadId: '60157ef256a8088d36fbb2a7',
+      threadId: '60157ef256a8088d36fbb2ad',
     },
   },
   {
     comment: '>Tfw no 4,6" screens anymore',
     threadInfo: {
       boardSlug: 'g',
-      threadId: '60157ef256a8088d36fbb2a7',
+      threadId: '60157ef256a8088d36fbb2ad',
     },
   },
   {
@@ -50,14 +51,14 @@ const repliesData: Array<ReplyData> = [
       "When did you realize that it really doesn't matter what distro you use in the end?",
     threadInfo: {
       boardSlug: 'a',
-      threadId: '60157ef256a8088d36fbb2ad',
+      threadId: '60158018d33f81f77f3d4596',
     },
   },
   {
     comment: 'What happened to hope and optimism for the future of technology?',
     threadInfo: {
       boardSlug: 'g',
-      threadId: '60157ef256a8088d36fbb2ad',
+      threadId: '60157ef256a8088d36fbb2b0',
     },
   },
   {
@@ -72,7 +73,7 @@ const repliesData: Array<ReplyData> = [
       '/dpt/ - Daily Programming Thread: old thread >>79826989 What are you working on, /g/?',
     threadInfo: {
       boardSlug: 'g',
-      threadId: '60157ef256a8088d36fbb2b0',
+      threadId: '60157ef256a8088d36fbb2ad',
     },
   },
   {
@@ -95,7 +96,7 @@ const repliesData: Array<ReplyData> = [
     comment: 'Just changed from chrome to firefox was it a bad idea?',
     threadInfo: {
       boardSlug: 'g',
-      threadId: '60157ef256a8088d36fbb2b0',
+      threadId: '60157ef256a8088d36fbb2ad',
     },
   },
   {
@@ -107,4 +108,11 @@ const repliesData: Array<ReplyData> = [
   },
 ];
 
-export default () => repliesData.forEach((reply) => createReply(reply));
+/* export default () => repliesData.forEach((reply) => createReply(reply)); */
+export default async () => {
+  // eslint-disable-next-line no-restricted-syntax
+  for (const reply of repliesData) {
+    // eslint-disable-next-line no-await-in-loop
+    await createReply(reply);
+  }
+};

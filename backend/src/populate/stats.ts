@@ -7,5 +7,6 @@ export default async () => {
     activeContent: '10MB',
   });
   const result = await stats.save();
+  // eslint-disable-next-line no-console
   console.log(result);
 };

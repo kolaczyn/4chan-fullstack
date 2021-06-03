@@ -1,17 +1,18 @@
 import Board from '../models/board.model';
 
-const createBoard = async (data: { slug: String, name: String }) => {
+const createBoard = async (data: { slug: String; name: String }) => {
   const { slug, name } = data;
   const board = new Board({
     slug,
     name,
   });
 
-  const result = await board.save();
-  console.log(result);
+  /* const result = */await board.save();
+  // eslint-disable-next-line no-console
+  /* console.log(result); */
 };
 
-const boards: Array<{ slug: String, name: String }> = [
+const boards: Array<{ slug: String; name: String }> = [
   { slug: 'a', name: 'Anime & Manga' },
   { slug: 'c', name: 'Anime/Cute' },
   { slug: 'w', name: 'Anime/Wallpapers' },
@@ -65,4 +66,11 @@ const boards: Array<{ slug: String, name: String }> = [
   { slug: 'vip', name: 'Very Important Posts' },
 ];
 
-export default () => boards.forEach((board) => createBoard(board));
+// export default async () => Promise.all(boards.map(async (board) => createBoard(board)));
+export default async () => {
+  // eslint-disable-next-line no-restricted-syntax
+  for (const board of boards) {
+    // eslint-disable-next-line no-await-in-loop
+    await createBoard(board);
+  }
+};
