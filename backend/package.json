@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node src/index.ts",
     "dev": "ts-node-dev --respawn src/index.ts",
-    "build": "tsc --project ./"
+    "build": "tsc --project ./",
+    "populate-db": "ts-node-dev ./src/dbUtils/populateDb.ts"
   },
   "dependencies": {
     "@types/winston": "^2.4.4",

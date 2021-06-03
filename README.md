@@ -51,13 +51,17 @@ Then run the following commands:
 ```bash
 git clone https://github.com/kolaczyn/4chan-fullstack.git
 cd 4chan-fullstack
+
 # run backend
 cd backend
 npm install
 # tell the port number and Mongo server info.
 # use .env.example as an example and edit it
 cat .env.example > .env
+# run a script populating db
+npm run populate-db # after that exit with Ctrl+C
 npm run dev
+
 # run frontend (in a seperate terminal)
 cd frontend
 # tell where the backend is located in .env file

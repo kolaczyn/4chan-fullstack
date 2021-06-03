@@ -17,22 +17,6 @@ const logger = winston.createLogger({
   transports: [new winston.transports.Console()],
 });
 
-// import populateBoards from './populate/boards';
-// import populateThreads from './populate/threads';
-// import populateReplies from './populate/replies';
-
-// const populateDb = async () => {
-//   // for some reason I have to uncomment the first line, run the app,
-//   // comment the first line, undcomennt the second, etc
-//   // otherwise I get some error which probably has something to do with race condition
-//   // I don't see where does it come from, though
-
-//   // await populateBoards();
-//   // await populateThreads();
-//   // await populateReplies();
-// };
-// populateDb();
-
 const app = express();
 
 app.set('view engine', 'pug');
