@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 
 import slugToName from '../const/slugToName.json';
 import ThreadModel from '../models/thread.model';
@@ -7,9 +7,14 @@ import BoardModel from '../models/board.model';
 
 const router = express.Router();
 
-const checkIfBoardExists = (req: Request, res: Response) => {
+const checkIfBoardExists = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   const { slug } = req.params;
   if (!(slug in slugToName)) return res.status(400).send('Invalid board name');
+  return next();
 };
 
 router.get('/', async (req: Request, res: Response) => {
@@ -24,14 +29,17 @@ router.get('/popular', async (req: Request, res: Response) => {
   return res.send(popularThreads);
 });
 
-router.get('/:slug', async (req: Request, res: Response) => {
-  checkIfBoardExists(req, res);
-  const { slug } = req.params;
+router.get(
+  '/:slug',
+  checkIfBoardExists,
+  async (req: Request, res: Response) => {
+    const { slug } = req.params;
 
-  const board = await BoardModel.findOne({ slug }).populate('threads');
+    const board = await BoardModel.findOne({ slug }).populate('threads');
 
-  return res.send(board);
-});
+    return res.send(board);
+  },
+);
 
 router.get('/:slug/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -46,61 +54,67 @@ router.get('/:slug/:id', async (req: Request, res: Response) => {
 });
 
 // post a thread
-router.post('/:slug', async (req: Request, res: Response) => {
-  checkIfBoardExists(req, res);
-  const { slug } = req.params;
+router.post(
+  '/:slug',
+  checkIfBoardExists,
+  async (req: Request, res: Response) => {
+    const { slug } = req.params;
 
-  const { subject, comment, name } = req.body;
+    const { subject, comment, name } = req.body;
 
-  if (!subject && !comment) {
-    return res.status(400).send('No subject and comment');
-  }
+    if (!subject && !comment) {
+      return res.status(400).send('No subject and comment');
+    }
 
-  const initialPost = new ReplyModel({
-    name,
-    comment,
-  });
+    const initialPost = new ReplyModel({
+      name,
+      comment,
+    });
 
-  const thread = new ThreadModel({
-    subject,
-    replies: [initialPost],
-    board: slug,
-  });
+    const thread = new ThreadModel({
+      subject,
+      replies: [initialPost],
+      board: slug,
+    });
 
-  const result = await thread.save();
-  const { _id } = result;
+    const result = await thread.save();
+    const { _id } = result;
 
-  // update the board
-  const board = await BoardModel.findOne({ slug });
-  if (board === null) {
-    return res.status(500).send('Something went wrong');
-  }
-  board.threads.push(_id);
-  await board.save();
-  return res.send(result);
-});
+    // update the board
+    const board = await BoardModel.findOne({ slug });
+    if (board === null) {
+      return res.status(500).send('Something went wrong');
+    }
+    board.threads.push(_id);
+    await board.save();
+    return res.send(result);
+  },
+);
 
 // post a reply to a thread
-router.post('/:slug/:threadId', async (req: Request, res: Response) => {
-  checkIfBoardExists(req, res);
-  const { threadId } = req.params;
+router.post(
+  '/:slug/:threadId',
+  checkIfBoardExists,
+  async (req: Request, res: Response) => {
+    const { threadId } = req.params;
 
-  const { comment, name } = req.body;
-  if (!comment) return res.status(400).send('No comment provided');
+    const { comment, name } = req.body;
+    if (!comment) return res.status(400).send('No comment provided');
 
-  const reply = new ReplyModel({
-    comment,
-    name,
-  });
+    const reply = new ReplyModel({
+      comment,
+      name,
+    });
 
-  const thread = await ThreadModel.findById(threadId);
-  if (thread === null) {
-    return res.status(400).send('Invalid thread id');
-  }
-  thread.replies.push(reply);
-  await thread.save();
+    const thread = await ThreadModel.findById(threadId);
+    if (thread === null) {
+      return res.status(400).send('Invalid thread id');
+    }
+    thread.replies.push(reply);
+    await thread.save();
 
-  return res.send(reply);
-});
+    return res.send(reply);
+  },
+);
 
 export default router;
