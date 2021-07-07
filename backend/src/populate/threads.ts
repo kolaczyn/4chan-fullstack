@@ -15,7 +15,9 @@ interface ThreadDataType {
 }
 
 const createThread = async (threadData: ThreadDataType) => {
-  const { threadId, boardSlug, subject, initialPostData } = threadData;
+  const {
+    threadId, boardSlug, subject, initialPostData,
+  } = threadData;
   const { comment, name } = initialPostData;
 
   const initialPost = new Reply({
@@ -34,11 +36,13 @@ const createThread = async (threadData: ThreadDataType) => {
   const { _id } = savedThread;
 
   const board = await Board.findOne({ slug: boardSlug });
+  // eslint-disable-next-line no-console
   console.log(board);
   board.threads.push(_id);
 
   const result = await board.save();
-  // console.log(result);
+  // eslint-disable-next-line no-console
+  console.log(result);
 };
 
 const threadsData: Array<ThreadDataType> = [
@@ -77,4 +81,13 @@ const threadsData: Array<ThreadDataType> = [
   },
 ];
 
-export default () => threadsData.forEach((thread) => createThread(thread));
+/* export default () => repliesData.forEach((reply) => createReply(reply)); */
+export default async () => {
+  // eslint-disable-next-line no-restricted-syntax
+  for (const thread of threadsData) {
+    // eslint-disable-next-line no-await-in-loop
+    await createThread(thread);
+    // eslint-disable-next-line no-console
+    console.log('thread', thread, 'created');
+  }
+};
