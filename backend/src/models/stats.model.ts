@@ -1,4 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
+
+interface StatsDocument extends Document {
+  totalPosts: Number;
+  currentUsers: Number;
+  activeContent: String;
+}
 
 const statsSchema = new mongoose.Schema({
   totalPosts: Number,
@@ -6,4 +12,4 @@ const statsSchema = new mongoose.Schema({
   activeContent: String,
 });
 
-export default mongoose.model('Stats', statsSchema);
+export default mongoose.model<StatsDocument>('Stats', statsSchema);

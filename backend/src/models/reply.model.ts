@@ -1,4 +1,10 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
+
+export interface ReplyDocument extends Document {
+  comment: String;
+  name: string;
+  createTime: Date;
+}
 
 const ReplySchema = new Schema({
   comment: String,
@@ -10,7 +16,7 @@ ReplySchema.method({});
 
 ReplySchema.static({});
 
-const Reply = model('Replies', ReplySchema);
+const Reply = model<ReplyDocument>('Replies', ReplySchema);
 
 export default Reply;
 export { ReplySchema };

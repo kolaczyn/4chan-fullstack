@@ -1,5 +1,11 @@
-import { Schema, model } from 'mongoose';
-import { ReplySchema } from './reply.model';
+import { Schema, model, Document } from 'mongoose';
+import { ReplyDocument, ReplySchema } from './reply.model';
+
+interface ThreadDocument extends Document {
+  subject: String;
+  board: String;
+  replies: ReplyDocument[];
+}
 
 const ThreadSchema = new Schema({
   subject: String,
@@ -11,7 +17,7 @@ ThreadSchema.method({});
 
 ThreadSchema.static({});
 
-const Thread = model('Threads', ThreadSchema);
+const Thread = model<ThreadDocument>('Threads', ThreadSchema);
 
 export default Thread;
 export { ThreadSchema };

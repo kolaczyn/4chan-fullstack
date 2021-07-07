@@ -7,10 +7,7 @@ import BoardModel from '../models/board.model';
 
 const router = express.Router();
 
-const checkIfBoardExists = (
-  req: Request,
-  res: Response,
-) => {
+const checkIfBoardExists = (req: Request, res: Response) => {
   const { slug } = req.params;
   if (!(slug in slugToName)) return res.status(400).send('Invalid board name');
 };
@@ -75,6 +72,9 @@ router.post('/:slug', async (req: Request, res: Response) => {
 
   // update the board
   const board = await BoardModel.findOne({ slug });
+  if (board === null) {
+    return res.status(500).send('Something went wrong');
+  }
   board.threads.push(_id);
   await board.save();
   return res.send(result);
@@ -94,6 +94,9 @@ router.post('/:slug/:threadId', async (req: Request, res: Response) => {
   });
 
   const thread = await ThreadModel.findById(threadId);
+  if (thread === null) {
+    return res.status(400).send('Invalid thread id');
+  }
   thread.replies.push(reply);
   await thread.save();
 

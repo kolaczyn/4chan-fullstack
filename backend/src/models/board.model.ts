@@ -1,4 +1,10 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
+
+interface BoardDocument extends Document {
+  slug: String;
+  name: String;
+  threads: Schema.Types.ObjectId[];
+}
 
 const BoardSchema = new Schema({
   slug: String,
@@ -18,7 +24,7 @@ BoardSchema.method({});
 
 BoardSchema.static({});
 
-const Board = model('Boards', BoardSchema);
+const Board = model<BoardDocument>('Boards', BoardSchema);
 
 export default Board;
 export { BoardSchema };
