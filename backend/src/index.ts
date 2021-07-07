@@ -19,8 +19,6 @@ const logger = winston.createLogger({
 
 const app = express();
 
-app.set('view engine', 'pug');
-
 if (app.get('env') === 'development') {
   app.use(morgan('tiny'));
 }
@@ -28,7 +26,6 @@ if (app.get('env') === 'development') {
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(`${__dirname}/public`));
 app.use(cors());
 
 // I should rename it to /api/misc, but then I would have to update my frontend as well
