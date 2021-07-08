@@ -38,11 +38,15 @@ const createThread = async (threadData: ThreadDataType) => {
   const board = await Board.findOne({ slug: boardSlug });
   // eslint-disable-next-line no-console
   console.log(board);
+  if (board === null) {
+  // eslint-disable-next-line no-console
+    return console.error('Board is null in populate threads screipt');
+  }
   board.threads.push(_id);
 
   const result = await board.save();
   // eslint-disable-next-line no-console
-  console.log(result);
+  return console.log(result);
 };
 
 const threadsData: Array<ThreadDataType> = [

@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 
-import slugToName from '../const/slugToName.json';
+import slugToName from '../const/slugToName';
 import ThreadModel from '../models/thread.model';
 import ReplyModel from '../models/reply.model';
 import BoardModel from '../models/board.model';

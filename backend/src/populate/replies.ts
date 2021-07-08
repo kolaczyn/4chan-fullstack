@@ -23,11 +23,15 @@ const createReply = async (replyData: ReplyData) => {
   });
 
   const thread = await Thread.findOne({ _id: threadId });
+  if (thread === null) {
+  // eslint-disable-next-line no-console
+    return console.error('Thread is empty in replies populate script');
+  }
   thread.replies.push(reply);
 
   const result = await thread.save();
   // eslint-disable-next-line no-console
-  console.log(result);
+  return console.log(result);
 };
 
 const repliesData: Array<ReplyData> = [

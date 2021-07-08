@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "node src/index.ts",
+    "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn src/index.ts",
     "build": "tsc --project ./",
     "populate-db": "ts-node-dev ./src/dbUtils/populateDb.ts"
