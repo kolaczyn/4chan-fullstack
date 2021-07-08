@@ -1,1 +1,1 @@
-export default 'http://localhost:5000/';
+export default `${process.env.REACT_APP_API_ENDPOINT}/`;
